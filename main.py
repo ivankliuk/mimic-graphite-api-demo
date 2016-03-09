@@ -17,8 +17,9 @@ def metrics_find():
     if query == "*":
         metrics = [{"text": "temperature", "expandable": True}]
     elif query == "temperature.*":
-        metrics = [{"text": "kyiv", "expandable": False},
-                   {"text": "odesa", "expandable": False}]
+        metrics = [{"text": "kyiv",
+                    "expandable": False}, {"text": "odesa",
+                                           "expandable": False}]
     return json.dumps(metrics)
 
 
@@ -35,8 +36,10 @@ def render():
     # max_data_points = int(request.form.get('maxDataPoints'))
 
     data = {
-        city: [(temp, time) for temp, time in datapts if from_ <= time <= until]
-        for city, datapts in TEMPERATURE_DATA.items()}
+        city: [(temp, time) for temp, time in datapts
+               if from_ <= time <= until]
+        for city, datapts in TEMPERATURE_DATA.items()
+    }
 
     response = []
 
@@ -46,11 +49,13 @@ def render():
                   'datapoints': data['Odesa']}
     abs_temp_kyiv = {
         'target': 'Absolute temperature in Kyiv, Ukraine (Celsius)',
-        'datapoints': [(abs(k), v) for k, v in data['Kyiv']]}
+        'datapoints': [(abs(k), v) for k, v in data['Kyiv']]
+    }
 
     abs_temp_odesa = {
         'target': 'Absolute temperature in Odesa, Ukraine (Celsius)',
-        'datapoints': [(abs(k), v) for k, v in data['Odesa']]}
+        'datapoints': [(abs(k), v) for k, v in data['Odesa']]
+    }
 
     if "*" in target:
         response += [temp_kyiv, temp_odesa, abs_temp_kyiv, abs_temp_odesa]
@@ -82,9 +87,10 @@ if __name__ == '__main__':
         port = int(sys.argv[2])
     except IndexError:
         print(
-            "Mimic Graphite API server execution options:\n\n{0} HOST PORT\n".
-            format(sys.argv[0]))
+            "Mimic Graphite API server execution options:\n\n{0} HOST PORT\n".format(
+                sys.argv[0]))
         sys.exit(1)
 
     app.run(host=host, port=port)
-    print(u"Mimic Graphite API server is running on {0}:{1}".format(host, port))
+    print(u"Mimic Graphite API server is running on {0}:{1}".format(host,
+                                                                    port))

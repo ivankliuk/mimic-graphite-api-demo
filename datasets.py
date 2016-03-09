@@ -10,9 +10,9 @@ def get_temperature_data():
         city: sorted(
             [(temp, int(time)) for time, temp in datapoints.items()],
             key=lambda x: x[1])
-        for city, datapoints in data.items()}
+        for city, datapoints in data.items()
+    }
     return result
-
 
 # Cache
 TEMPERATURE_DATA = get_temperature_data()
